@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get("/", (_, res) => {
-  res.send("something else\n");
+  res.send("Server running on port 3000\n");
 });
 
 app.get("/video-sync", (_, res) => {
@@ -56,15 +56,14 @@ app.get("/video-stream", (req, res) => {
 
   res.writeHead(206, {
     "Content-Range": `bytes ${start}-${end}/${fileSize}`,
-
     "Accept-Ranges": "bytes",
-
     "Content-Length": chunksize,
-
     "Content-Type": "video/mp4",
   });
 
   file.pipe(res);
 });
 
-app.listen(3000);
+app.listen(3000, () => {
+  console.log("Server started on port 3000");
+});
